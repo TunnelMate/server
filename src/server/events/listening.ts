@@ -1,9 +1,9 @@
-import { ServerConfig } from "../../interfaces/server";
+import { ServerConfig, ServerContext } from "../../interfaces";
 import { getSchema } from "../utils/schema";
 import logger from "../../logger";
 
-export default (options: ServerConfig) => {
+export default (context: ServerContext) => {
     return () => {
-        logger.info(`Passagaway server listening in: ${getSchema(options)}://${options.host}:${options.port}`)
+        logger.info(`Passagaway server listening in: ${getSchema(context.config)}://${context.config.host}:${context.config.port}`)
     }
 }

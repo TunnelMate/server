@@ -1,4 +1,5 @@
 import http from 'http';
+import { ClientManager } from '../manager';
 
 export interface ServerConfig {
     port: Number,
@@ -10,4 +11,9 @@ export interface ServerConfig {
 export interface ServerValue {
     s: http.Server,
     activate: () => void,
+}
+
+export interface ServerContext {
+    config: ServerConfig,
+    manager: ClientManager,
 }

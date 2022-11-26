@@ -1,4 +1,4 @@
-import { ServerConfig } from "../../../interfaces/server";
+import { ServerConfig } from "../../../interfaces";
 
 import http from 'http';
 
