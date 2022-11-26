@@ -1,5 +1,6 @@
 import http from 'http';
 import { ClientManager } from '../manager';
+import { Client } from '../manager/client';
 
 export interface ServerConfig {
     port: Number,
@@ -16,4 +17,14 @@ export interface ServerValue {
 export interface ServerContext {
     config: ServerConfig,
     manager: ClientManager,
+}
+
+export interface ClientOptions {
+    id: String
+    config: ServerConfig
+}
+
+export interface ManagerResponse {
+    error: boolean;
+    result: String | Client;
 }
