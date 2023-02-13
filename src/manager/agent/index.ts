@@ -11,7 +11,7 @@ const DEFAULT_MAX_SOCKETS = 10;
 
 export default class extends Agent {
 
-    private cliendID: string;
+    public readonly cliendID: string;
 
     private connectedSockets: number = 0;
     private maxTcpSockets: number;
@@ -52,7 +52,7 @@ export default class extends Agent {
         });
     }
 
-    private onConnection(socket) {
+    private onConnection(socket: net.Socket) {
         if (this.connectedSockets >= this.maxTcpSockets) {
             socket.destroy();
             return false;
