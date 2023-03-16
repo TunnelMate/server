@@ -1,27 +1,27 @@
-import http from 'http';
-import { ClientManager } from '../manager';
-import { Client } from '../manager/client';
+import http from "http";
+import { ClientManager } from "../manager";
+import { Client } from "../manager/client";
 
 export interface ServerConfig {
-    port: Number,
-    host: String,
+    port: Number;
+    host: String;
 
-    secure: boolean
+    secure: boolean;
 }
 
 export interface ServerValue {
-    s: http.Server,
-    activate: () => void,
+    s: http.Server;
+    activate: () => void;
 }
 
 export interface ServerContext {
-    config: ServerConfig,
-    manager: ClientManager,
+    config: ServerConfig;
+    manager: ClientManager;
 }
 
 export interface ClientOptions {
-    id: String
-    config: ServerConfig
+    id: String;
+    config: ServerConfig;
 }
 
 export interface ManagerResponse {

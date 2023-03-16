@@ -5,13 +5,12 @@ import createManager from "./manager";
 import createContext from "./context";
 
 const main = () => {
-
     let manager = createManager(server_info);
-    let context = createContext(manager, server_info)
+    let context = createContext(manager, server_info);
 
-    let {s, activate} = createServer(context);
+    let { s, activate } = createServer(context);
 
     activate();
-}
+};
 
 main();

@@ -1,27 +1,27 @@
-import net from 'net';
-import { Agent } from 'http';
-import logger from '../../../logger';
-import { create } from 'ts-node';
+import net from "net";
+import { Agent } from "http";
+import logger from "../../../logger";
+import { create } from "ts-node";
 
 function createServer(server: net.Server, self: any) {
-    server.on('close', () => {
+    server.on("close", () => {
         for (const conn of self.waitingCreateConn) {
-            conn(new Error('closed'), null);
+            conn(new Error("closed"), null);
         }
 
         self.waitingCreateConn = [];
 
         // @ts-ignore
-        self.emit('end');
+        self.emit("end");
     });
 
-    server.on('connection', self.onConnection.bind(self));
-    server.on('error', (err: any) => {
-        if (err.code == 'ECONNRESET' || err.code == 'ETIMEDOUT') {
+    server.on("connection", self.onConnection.bind(self));
+    server.on("error", (err: any) => {
+        if (err.code == "ECONNRESET" || err.code == "ETIMEDOUT") {
             return;
         }
 
-        console.log(err)
+        console.log(err);
     });
 
     return (cb: (port: number) => void) => {
@@ -31,7 +31,7 @@ function createServer(server: net.Server, self: any) {
 
             cb(port);
         });
-    }
+    };
 }
 
 export default createServer;

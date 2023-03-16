@@ -1,11 +1,15 @@
 import { ServerContext } from "../../../interfaces";
 import json_res from "./utils/json_res";
 
-import http from 'http';
+import http from "http";
 import { Client } from "../../../manager/client";
 
-export default async (context: ServerContext, req: http.IncomingMessage, res: http.ServerResponse) => {
-    const {error, result} = context.manager.createNewClient();
+export default async (
+    context: ServerContext,
+    req: http.IncomingMessage,
+    res: http.ServerResponse
+) => {
+    const { error, result } = context.manager.createNewClient();
     const client = result as Client;
 
     if (error) {
@@ -15,7 +19,7 @@ export default async (context: ServerContext, req: http.IncomingMessage, res: ht
     try {
         const info: any = await client.agent.listen();
 
-        let output =  {
+        let output = {
             id: client.id,
 
             port: info.port,
@@ -23,9 +27,8 @@ export default async (context: ServerContext, req: http.IncomingMessage, res: ht
         };
 
         return json_res(output, res);
-
     } catch (err) {
         context.manager.removeClient(client.id);
         throw err;
     }
-}
+};

@@ -1,16 +1,14 @@
-
-import { Agent } from 'http';
-import net from 'net';
+import { Agent } from "http";
+import net from "net";
 
 import createServer from "./utils/create";
 import fillSocket from "./utils/socket";
 
-import logger from '../../logger';
+import logger from "../../logger";
 
 const DEFAULT_MAX_SOCKETS = 10;
 
 export default class extends Agent {
-
     public readonly cliendID: string;
 
     private connectedSockets: number = 0;
@@ -36,7 +34,7 @@ export default class extends Agent {
     listen() {
         const server = this.server;
         if (this.started) {
-            throw new Error('already started');
+            throw new Error("already started");
         }
 
         this.started = true;
@@ -48,7 +46,7 @@ export default class extends Agent {
                 resolve({
                     port,
                 });
-            })
+            });
         });
     }
 
@@ -69,6 +67,9 @@ export default class extends Agent {
             return;
         }
 
+        // Send a 1 MB file over the socket
+        const data = Buffer.alloc(1024 * 1024, "a");
+        socket.write(data);
         this.availableSockets.push(socket);
     }
 

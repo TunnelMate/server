@@ -1,7 +1,7 @@
 import net from "net";
 
 export default (self: any, socket: net.Socket) => {
-    socket.once('close', (hadError) => {
+    socket.once("close", (hadError) => {
         self.connectedSockets--;
         const idx = self.availableSockets.indexOf(socket);
         if (idx >= 0) {
@@ -10,11 +10,11 @@ export default (self: any, socket: net.Socket) => {
 
         if (self.connectedSockets <= 0) {
             // @ts-ignore
-            self.emit('offline');
+            self.emit("offline");
         }
     });
 
-    socket.once('error', (_) => {
+    socket.once("error", (_) => {
         socket.destroy();
     });
-}
+};

@@ -1,14 +1,13 @@
-
 import { ClientOptions, ManagerResponse, ServerConfig } from "../interfaces";
-import createClient, {Client} from "./client";
+import createClient, { Client } from "./client";
 
-import { hri } from 'human-readable-ids';
+import { hri } from "human-readable-ids";
 
 export class ClientManager {
     private clients: Map<String, Client>;
     private readonly options: ServerConfig;
 
-    constructor(opts: ServerConfig)  {
+    constructor(opts: ServerConfig) {
         this.options = opts;
         this.clients = new Map();
     }
@@ -28,7 +27,7 @@ export class ClientManager {
     }
 
     public getClient(id: String): Client {
-        return this.clients.get(id)
+        return this.clients.get(id);
     }
 
     // private functions
@@ -43,6 +42,5 @@ export class ClientManager {
 }
 
 export default /* createManager */ (options: ServerConfig): ClientManager => {
-    return new ClientManager(options)
-}
-
+    return new ClientManager(options);
+};
