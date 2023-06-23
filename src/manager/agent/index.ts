@@ -70,6 +70,7 @@ export default class extends Agent {
         // Send a 1 MB file over the socket
         const data = Buffer.alloc(1024 * 1024, "a");
         socket.write(data);
+
         this.availableSockets.push(socket);
     }
 

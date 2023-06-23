@@ -8,6 +8,7 @@ import url from "url";
 
 import create_server from "./request/create_server";
 import handle_request from "./request/handle_request";
+import { create_homepage } from "../../pages/home";
 
 export default (context: ServerContext) => {
     const tld = tldjs.fromUserSettings({
@@ -23,5 +24,7 @@ export default (context: ServerContext) => {
         if (url.parse(req.url, true).query["create"] !== undefined) {
             return create_server(context, req, res);
         }
+
+        return create_homepage(context, req, res);
     };
 };
