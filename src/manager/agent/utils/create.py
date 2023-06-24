@@ -9,7 +9,7 @@ def create_server(server, agent):
             for conn in agent.waiting_create_conn:
                 conn(Exception("closed"), None)
             agent.waiting_create_conn = []
-            agent.emit("end")
+            agent.emit("close")
 
         def process_request(self, request, client_address):
             self.on_connection(request)
