@@ -1,0 +1,2 @@
+human-id==0.2.0
+tldextract==3.4.4

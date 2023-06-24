@@ -1,34 +1,33 @@
-from server_context import ServerContext
-from server_config import ServerConfig
+from .. import ServerContext, ServerConfig
 from typing import Optional
 
-from tld import get_tld
+from tldextract import extract
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
-from create_server import create_server
-from handle_request import handle_request
-from create_homepage import create_homepage
+from .handles.create_server import create_server
+from .handles.handle_request import handle_request
+from pages.home import create_homepage
 
-def get_subdomain(url: str) -> Optional[str]:
+def get_subdomain(host: str) -> Optional[str]:
     """Get the subdomain from a URL."""
-    parsed_url = urlparse(url)
-    host = parsed_url.netloc
-    tld = get_tld(host, as_object=True)
+    tld = extract(host)
     return tld.subdomain
 
 def create_request_handler(context: ServerContext):
     """Create a request handler for the server."""
-    def request_handler(request: BaseHTTPRequestHandler):
-        subdomain = get_subdomain(request.headers.host)
+    class S(BaseHTTPRequestHandler):
+        def do_GET(self):
+            subdomain = get_subdomain(self.headers["host"])
 
-        if subdomain:
-            return handle_request(context, request, subdomain)
+            if subdomain:
+                return handle_request(context, self, subdomain)
 
-        if urlparse(request.path, allow_fragments=False).query == "create":
-            return create_server(context, request)
+            if urlparse(self.path, allow_fragments=False).query == "create":
+                return create_server(context, self)
 
-        return create_homepage(context, request)
+            return create_homepage(context, self)
 
-    return request_handler
+
+    return S

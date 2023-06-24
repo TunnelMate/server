@@ -1,4 +1,4 @@
-from .interfaces import ServerConfig
+from interfaces import ServerConfig
 
 server_info: ServerConfig = {
     "port": 3000,

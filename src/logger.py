@@ -9,4 +9,4 @@ class Logger:
     
     @staticmethod
     def info(msg):
-        print("[{}]: {}".format(Logger.prefix['info'], msg))
+        print("[{}{}]: {}".format(Logger.prefix['info'], Fore.RESET, msg))

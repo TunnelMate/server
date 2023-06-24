@@ -1,13 +1,13 @@
-from server import Server
-from context import Context
-from manager import Manager
+from server import create_server
+from context import create_context
+from manager import ClientManager
 from config import server_info
 
 def main():
-    manager = Manager(server_info)
-    context = Context(manager, server_info)
+    manager = ClientManager(server_info)
+    context = create_context(manager, server_info)
 
-    s = Server(context)
-    s.activate()
+    s = create_server(context)
+    s["activate"]()
     
 main()

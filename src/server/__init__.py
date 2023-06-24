@@ -1,18 +1,16 @@
-import http
 from http.server import HTTPServer
-from .events.listening import listening
-from .events.request import request
+from interfaces import ServerContext, ServerConfig
 
-def createServer(context):
-    server = HTTPServer()
-    server.on("request", request(context))
-    server.on("listening", listening(context))
+from .events.listening import start_server
+from .events.request import create_request_handler
+
+def create_server(context):
+    server_address = (context.config["host"], context.config["port"])
+    server = HTTPServer(server_address, create_request_handler(context))
 
     def activate():
-        server.listen({
-            "port": context.config.port,
-            "host": context.config.host,
-        })
+        start_server(context)
+        server.serve_forever()
 
     return {
         "s": server,
